@@ -21,6 +21,19 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
+--
+-- Name: wod_type; Type: TYPE; Schema: public; Owner: -
+--
+
+CREATE TYPE public.wod_type AS ENUM (
+    'amrap',
+    'emom',
+    'rft',
+    'heavy_day',
+    'ladder'
+);
+
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -47,6 +60,45 @@ CREATE TABLE public.schema_migrations (
 
 
 --
+-- Name: wods; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.wods (
+    id bigint NOT NULL,
+    name character varying,
+    wod_type public.wod_type NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: wods_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.wods_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: wods_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.wods_id_seq OWNED BY public.wods.id;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.wods ALTER COLUMN id SET DEFAULT nextval('public.wods_id_seq'::regclass);
+
+
+--
 -- Name: ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -63,10 +115,27 @@ ALTER TABLE ONLY public.schema_migrations
 
 
 --
+-- Name: wods_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.wods
+    ADD CONSTRAINT wods_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_wods_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_wods_on_name ON public.wods USING btree (name);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
 SET search_path TO "$user", public;
 
+INSERT INTO "schema_migrations" (version) VALUES
+('20181008214533');
 
 
