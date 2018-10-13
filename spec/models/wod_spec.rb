@@ -1,5 +1,4 @@
 RSpec.describe Wod, type: :model do
-
   let(:wod) { FactoryBot.build(:wod) }
 
   it "has a valid factory" do
@@ -11,6 +10,6 @@ RSpec.describe Wod, type: :model do
   end
 
   describe "@name" do
-    it { expect(wod).to validate_uniqueness_of(:name)}
+    it { expect(wod).to validate_uniqueness_of(:name) }
   end
 end

@@ -10,4 +10,3 @@ class Wod < ApplicationRecord
   validates :wod_type, presence: true
   validates :name, uniqueness: true
 end
-

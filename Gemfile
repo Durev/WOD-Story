@@ -8,7 +8,7 @@ gem 'puma', '~> 3.11'
 gem 'rails', '~> 5.2.1'
 
 group :development, :test do
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'rubocop', '~> 0.59.2', require: false
 end
 
