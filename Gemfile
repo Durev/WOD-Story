@@ -9,6 +9,7 @@ gem 'rails', '~> 5.2.1'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'rspec-graphql_matchers'
   gem 'rubocop', '~> 0.59.2', require: false
 end
 
